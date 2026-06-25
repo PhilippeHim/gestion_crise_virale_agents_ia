@@ -1,0 +1,42 @@
+{
+  "input": {
+    "path": "data.xlsx",
+    "sheet_name": 0
+  },
+  "filters": [
+    {
+      "column": "Language",
+      "op": "eq",
+      "value": "fr"
+    },
+    {
+      "column": "postDate",
+      "op": "between",
+      "value": ["2026-05-01", "2026-05-31"]
+    }
+  ],
+  "agents": [
+    {
+      "name": "summary"
+    },
+    {
+      "name": "sentiment_summary",
+      "params": {
+        "column": "Sentiment"
+      }
+    },
+    {
+      "name": "top_values",
+      "params": {
+        "column": "Author",
+        "limit": 10
+      }
+    },
+    {
+      "name": "export",
+      "params": {
+        "path": "outputs/filtered_dataset.csv"
+      }
+    }
+  ]
+}
