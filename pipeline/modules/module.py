@@ -3,10 +3,8 @@ from typing import Any
 
 
 class Module(ABC):
-    def __init__(self, etat: dict) -> None:
-        self.etat = etat
-        self.donnees: Any = None
-        self.graphique: Any = None
+    def __init__(self, donnees: dict) -> None:
+        self.donnees = donnees
 
     @abstractmethod
     def run(self) -> dict:
