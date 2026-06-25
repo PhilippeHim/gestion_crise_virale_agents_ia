@@ -4,4 +4,4 @@
 class AgentProposition(Module):
     def run(self) -> dict:
         # Propose une action: ignorer, publier ou modifier.
-        return self.etat
+        return self.donnees
