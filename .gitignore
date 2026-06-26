@@ -31,3 +31,40 @@ outputs/
 Thumbs.db
 .vscode/
 .idea/
+
+# Streamlit pipeline project: keep only runtime/source files in git.
+# The app relies on streamlit_pipeline.py, pipeline/, pipeline/ui/,
+# pipeline/models/, config/, requirements.txt, environment.yml and data_source/.
+
+# Local exploratory notebooks
+*.ipynb
+!pipeline/test.ipynb
+
+# Root-level datasets and generated data snapshots
+/data.xlsx
+/data_clean.parquet
+/data_enriched.parquet
+/data_clean_100_premieres_lignes.csv
+/dictionnaire_bdd.xlsx
+
+# Root-level duplicated model artifacts
+/agent_viralite_model.pkl
+/agent_viralite_metadata.json
+
+# Datathon notes, prompts and presentation material kept locally
+/Contrat_Agent_3_Prompt.txt
+/agent_3.txt
+/datathon_contexte.txt
+/rapport_axe4.txt
+/*.pdf
+/*.pptx
+
+# Exploratory visual exports
+/*.png
+/*.jpg
+/*.jpeg
+/*.html
+
+# Standalone exploratory app/code not used by streamlit_pipeline.py
+/nihimat/
+/lib/

@@ -9,7 +9,7 @@ from pipeline.modules.module import Module
 class Declencheur(Module):
     def run(self) -> dict:
         pas_de_declencheur = True
-        seuil_impression = config("SEUIL_IMPRESSION", cast=int)
+        seuil_impression = config("SEUIL_IMPRESSION", default=5000, cast=int)
 
         for _, ligne in self.donnees.get("dataset", pd.DataFrame()).iterrows():
             if ligne["Impressions"] > seuil_impression:

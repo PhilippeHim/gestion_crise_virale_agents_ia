@@ -1,0 +1,25 @@
+name: datathon_2026
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+    - pandas
+    - openpyxl
+    - numpy
+    - matplotlib
+    - seaborn
+    - pyarrow
+    - scikit-learn
+    - scipy
+    - jupyter
+    - jupyterlab
+    - ipykernel
+    - ipywidgets
+    - transformers
+    - torch
+    - protobuf
+    - sentencepiece
+    - tqdm
