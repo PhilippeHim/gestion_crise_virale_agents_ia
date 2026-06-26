@@ -334,27 +334,10 @@ def _render_react(component_name: str, props: dict, height: int) -> None:
 
         function CrisisDashboardBottom({{ payload }}) {{
           const proposition = payload.proposition || {{}};
-          const messages = proposition.messages_cles || [];
-          const diagnostic = proposition.diagnostic || [];
           const validation = proposition.points_a_valider || [];
           const eviter = proposition.messages_a_eviter || [];
 
           return e("main", {{ style: {{ ...styles.wrap, display: "grid", gap: 12 }} }},
-            e(ListBlock, {{ title: "Diagnostic", items: diagnostic }}),
-            e(ListBlock, {{ title: "Messages cles", items: messages }}),
-            e("section", {{ style: {{ ...styles.band }} }},
-              e("h2", {{ style: {{ ...styles.title, fontSize: 22, textAlign: "left", marginBottom: 10 }} }}, "Brouillon de reponse"),
-              e("div", {{
-                style: {{
-                  background: palette.soft,
-                  border: `1px solid ${{palette.line}}`,
-                  borderRadius: 8,
-                  padding: 14,
-                  lineHeight: 1.5,
-                  whiteSpace: "pre-wrap"
-                }}
-              }}, proposition.reponse_brouillon || "Brouillon non disponible.")
-            ),
             e("section", {{ style: {{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }} }},
               e(ListBlock, {{ title: "A eviter", items: eviter }}),
               e(ListBlock, {{ title: "A valider", items: validation }})
@@ -401,3 +384,21 @@ def render_crisis_dashboard(donnees: dict, height: int = 920) -> None:
         "periode_collecte": donnees.get("periode_collecte"),
     }
     _render_react("CrisisDashboard", {"payload": payload}, height=height)
+
+
+def render_crisis_dashboard_top(donnees: dict, height: int = 530) -> None:
+    proposition = donnees.get("proposition") or {}
+    narratif = donnees.get("narratif") or {}
+    payload = {
+        "proposition": proposition,
+        "recits": narratif.get("recits", []) if isinstance(narratif, dict) else [],
+        "communautes": donnees.get("communautes", []),
+        "periode_collecte": donnees.get("periode_collecte"),
+    }
+    _render_react("CrisisDashboardTop", {"payload": payload}, height=height)
+
+
+def render_crisis_dashboard_bottom(donnees: dict, height: int = 280) -> None:
+    proposition = donnees.get("proposition") or {}
+    payload = {"proposition": proposition}
+    _render_react("CrisisDashboardBottom", {"payload": payload}, height=height)
