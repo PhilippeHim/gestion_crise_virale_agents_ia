@@ -28,8 +28,8 @@ def afficher_vue(vue_active: str, donnees: dict) -> None:
 
 def afficher_vue_vide() -> None:
     render_react_header(
-        "Cuisine agentique - Datathon PX8",
-        "De la crise brute aux agents : acteurs, propagation, viralité, coordination, narratifs, sémantique, proposition.",
+        "Cuisine Agent - NACHOS",
+        "Neutralisation Agent for Crisis - Human-in-the-loop Orchestration System",
     )
     vue_active = choisir_vue_timeline({}, mode_vide=True)
     afficher_vue(vue_active, {})

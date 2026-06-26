@@ -740,8 +740,8 @@ def afficher_header_principal_avec_toggle() -> str:
         titre = "Synthèse exécutive - Crise informationnelle"
         sous_titre = periode_collecte_lisible(st.session_state.get("donnees_pipeline", {}))
     else:
-        titre = "Cuisine agentique - Datathon PX8"
-        sous_titre = "De la crise brute aux agents : acteurs, propagation, viralité, coordination, narratifs, sémantique, proposition."
+        titre = "Cuisine Agent - NACHOS"
+        sous_titre = "<strong>N</strong>eutralisation <strong>A</strong>gent for <strong>C</strong>risis - <strong>H</strong>uman-in-the-loop <strong>O</strong>rchestration <strong>S</strong>ystem"
 
     with st.container(border=True):
         col_gauche, col_titre, col_toggle = st.columns([0.22, 0.56, 0.22], vertical_alignment="center")
@@ -749,7 +749,7 @@ def afficher_header_principal_avec_toggle() -> str:
             st.markdown(
                 f"""
                 <div class="px8-main-header-title">{html.escape(titre)}</div>
-                <p class="px8-main-header-subtitle">{html.escape(sous_titre)}</p>
+                <p class="px8-main-header-subtitle">{sous_titre}</p>
                 """,
                 unsafe_allow_html=True,
             )
