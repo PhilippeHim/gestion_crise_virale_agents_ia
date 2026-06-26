@@ -4,7 +4,6 @@ import tempfile
 import pandas as pd
 import streamlit as st
 
-from pipeline.ui.charts import *
 from pipeline.ui.view_utils import *
 
 def afficher(donnees: dict | None = None) -> None:

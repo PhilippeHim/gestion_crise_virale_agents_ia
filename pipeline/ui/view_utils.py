@@ -5,12 +5,23 @@ from pathlib import Path
 
 import pandas as pd
 import streamlit as st
-from decouple import config
+from pipeline.config import config
 
-from pipeline.pipeline import PipelineAgentX
 from pipeline.ui.react_components import render_react_outputs, render_react_summary
 
+
 def executer_pipeline(path: str) -> dict:
+    try:
+        from pipeline.pipeline import PipelineAgentX
+    except ModuleNotFoundError as erreur:
+        paquet = erreur.name or str(erreur)
+        st.error(
+            "Dépendance manquante pour exécuter le pipeline : "
+            f"`{paquet}`. Lance l'application avec `conda run -n datathon_px8 streamlit run streamlit_pipeline.py` "
+            "ou installe les dépendances de `requirements.txt` dans l'environnement courant."
+        )
+        st.stop()
+
     pipeline = PipelineAgentX()
     return pipeline.run(path)
 

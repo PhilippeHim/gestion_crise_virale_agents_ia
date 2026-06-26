@@ -2,7 +2,7 @@ import collections
 
 import networkx as nx
 import pandas as pd
-from decouple import config
+from pipeline.config import config
 from networkx.algorithms.community import louvain_communities, modularity
 
 from pipeline.modules.agent_langage import AgentLangage

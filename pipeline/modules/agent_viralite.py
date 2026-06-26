@@ -1,6 +1,6 @@
 import joblib
 import pandas as pd
-from decouple import config
+from pipeline.config import config
 
 from pipeline.modules.module import Module
 

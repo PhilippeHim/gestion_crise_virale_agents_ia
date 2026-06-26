@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import plotly.express as px
-from decouple import config
+from pipeline.config import config
 
 from pipeline.modules.module import Module
 

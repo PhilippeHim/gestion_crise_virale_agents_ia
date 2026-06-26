@@ -1,33 +1,29 @@
+from importlib import import_module
+
 from pipeline.ui.navigation import choisir_vue_timeline
 from pipeline.ui.react_components import render_react_header
-from pipeline.ui.views.cuisine import (
-    acteurs,
-    collecte_flux_x,
-    coordination,
-    declencheurs,
-    filtre_risque,
-    narratifs,
-    propagation,
-    proposition,
-    proposition_finale,
-    semantique,
-    viralite,
-)
 
 
 VUES_CUISINE = {
-    "collecte_filtrage": collecte_flux_x.afficher,
-    "declencheurs": declencheurs.afficher,
-    "acteurs": acteurs.afficher,
-    "propagation": propagation.afficher,
-    "viralite": viralite.afficher,
-    "coordination": coordination.afficher,
-    "narratifs": narratifs.afficher,
-    "filtre_3": filtre_risque.afficher,
-    "semantique": semantique.afficher,
-    "proposition_finale": proposition_finale.afficher,
-    "proposition": proposition.afficher,
+    "collecte_filtrage": "pipeline.ui.views.cuisine.collecte_flux_x",
+    "declencheurs": "pipeline.ui.views.cuisine.declencheurs",
+    "acteurs": "pipeline.ui.views.cuisine.acteurs",
+    "propagation": "pipeline.ui.views.cuisine.propagation",
+    "viralite": "pipeline.ui.views.cuisine.viralite",
+    "coordination": "pipeline.ui.views.cuisine.coordination",
+    "narratifs": "pipeline.ui.views.cuisine.narratifs",
+    "filtre_3": "pipeline.ui.views.cuisine.filtre_risque",
+    "semantique": "pipeline.ui.views.cuisine.semantique",
+    "proposition_finale": "pipeline.ui.views.cuisine.proposition_finale",
+    "proposition": "pipeline.ui.views.cuisine.proposition",
 }
+
+
+def afficher_vue(vue_active: str, donnees: dict) -> None:
+    module_path = VUES_CUISINE.get(vue_active)
+    if module_path is None:
+        return
+    import_module(module_path).afficher(donnees)
 
 
 def afficher_vue_vide() -> None:
@@ -36,13 +32,9 @@ def afficher_vue_vide() -> None:
         "De la crise brute aux agents : acteurs, propagation, viralité, coordination, narratifs, sémantique, proposition.",
     )
     vue_active = choisir_vue_timeline({}, mode_vide=True)
-    vue = VUES_CUISINE.get(vue_active)
-    if vue is not None:
-        vue({})
+    afficher_vue(vue_active, {})
 
 
 def afficher_vue_cuisine(donnees: dict) -> None:
     vue_active = choisir_vue_timeline(donnees)
-    vue = VUES_CUISINE.get(vue_active)
-    if vue is not None:
-        vue(donnees)
+    afficher_vue(vue_active, donnees)
