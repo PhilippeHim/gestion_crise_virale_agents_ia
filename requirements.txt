@@ -6,3 +6,5 @@ python-decouple>=3.8
 streamlit>=1.40
 scikit-learn==1.6.1
 networkx>=3.0
+joblib>=1.4
+pyarrow>=15.0
