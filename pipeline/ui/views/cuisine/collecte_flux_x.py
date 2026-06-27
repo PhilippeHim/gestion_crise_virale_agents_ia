@@ -95,6 +95,19 @@ def afficher(donnees: dict | None = None) -> None:
     afficher_source_active()
 
     st.markdown('<div class="px8-import-title">Filtres de préparation</div>', unsafe_allow_html=True)
+
+    nom_societe = st.text_input(
+        "Nom de la société analysée",
+        value=st.session_state.get("nom_societe", ""),
+        placeholder="Ex : CNC, Air France, SNCF…",
+        key="nom_societe_input",
+    )
+    if nom_societe != st.session_state.get("nom_societe_prev", ""):
+        st.session_state["nom_societe"] = nom_societe
+        st.session_state["nom_societe_prev"] = nom_societe
+        for _k in ("filtre_1_requete", "filtre_1_hashtags"):
+            st.session_state.pop(_k, None)
+
     col_filtre_1, col_filtre_2 = st.columns(2, gap="large")
 
     with col_filtre_1:
@@ -107,18 +120,20 @@ def afficher(donnees: dict | None = None) -> None:
             """,
             unsafe_allow_html=True,
         )
-        requete_filtre = st.text_input(
-            "Requête X",
-            value='("CNC" OR "CNC Talent" OR "Ultia") lang:fr',
-            key="filtre_1_requete",
-        )
-        hashtags = st.text_input("Hashtags", value="#CNC,#CNCTalent,#Ultia", key="filtre_1_hashtags")
-        comptes = st.text_area(
-            "Comptes / origines",
-            value="ultia\noffinvestigatio\ncharlesvillaa",
-            height=120,
-            key="filtre_1_comptes",
-        )
+        _societe = st.session_state.get("nom_societe", "")
+        _requete_default = f'("{_societe}") lang:fr' if _societe else '("CNC" OR "CNC Talent" OR "Ultia") lang:fr'
+        _hashtag_default = f"#{_societe.replace(' ', '')}" if _societe else "#CNC,#CNCTalent,#Ultia"
+
+        if "filtre_1_requete" not in st.session_state:
+            st.session_state["filtre_1_requete"] = _requete_default
+        if "filtre_1_hashtags" not in st.session_state:
+            st.session_state["filtre_1_hashtags"] = _hashtag_default
+        if "filtre_1_comptes" not in st.session_state:
+            st.session_state["filtre_1_comptes"] = "ultia\noffinvestigatio\ncharlesvillaa"
+
+        requete_filtre = st.text_input("Requête X", key="filtre_1_requete")
+        hashtags = st.text_input("Hashtags", key="filtre_1_hashtags")
+        comptes = st.text_area("Comptes / origines", height=120, key="filtre_1_comptes")
         langue = st.selectbox("Langue", ["fr", "en", "all"], key="filtre_1_langue")
         st.markdown("</div>", unsafe_allow_html=True)
         filtre_1_config = {

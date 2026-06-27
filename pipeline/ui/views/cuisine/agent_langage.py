@@ -37,7 +37,7 @@ TFIDF_MAX_DF = 0.35               # terme présent dans au plus 35 % des textes
 NB_MOTS_CLES = 7                  # mots-clés retenus par récit
 LONGUEUR_TEXTE_MIN = 3            # textes plus courts ignorés
 RAG_MAX_FEATURES = 5000           # vocabulaire du moteur RAG
-RAG_EXEMPLES_PAR_RECIT = 6        # exemples renvoyés par récit
+RAG_EXEMPLES_PAR_RECIT = 10       # exemples renvoyés par récit
 RAG_RECITS_MAX = 5                # récits prioritaires documentés par le RAG
 RAG_SIMILARITE_MIN = 0.05         # exemple écarté en dessous de ce cosinus
 

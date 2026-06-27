@@ -1,7 +1,7 @@
 from importlib import import_module
 
 from pipeline.ui.navigation import choisir_vue_timeline
-from pipeline.ui.react_components import render_react_header
+import streamlit as st
 
 
 VUES_CUISINE = {
@@ -27,9 +27,11 @@ def afficher_vue(vue_active: str, donnees: dict) -> None:
 
 
 def afficher_vue_vide() -> None:
-    render_react_header(
-        "Cuisine Agent - NACHOS",
-        "Neutralisation Agent for Crisis - Human-in-the-loop Orchestration System",
+    st.markdown(
+        "<h1 style='text-align:center;margin-bottom:4px'>Cuisine Agent - NACHOS</h1>"
+        "<p style='text-align:center;color:#64717d;margin-top:0'>"
+        "Neutralisation Agent for Crisis - Human-in-the-loop Orchestration System</p>",
+        unsafe_allow_html=True,
     )
     vue_active = choisir_vue_timeline({}, mode_vide=True)
     afficher_vue(vue_active, {})

@@ -16,6 +16,7 @@ def construire_timeline(donnees: dict) -> list[dict]:
     return [
         {
             "key": "acteurs",
+            "highlight_keys": ["viralite"],
             "label": "Acteurs",
             "value": f"{lignes:,} messages",
             "detail": "Qui parle ? Médias, militants, influenceurs, anonymes, comptes suspects.",
@@ -85,6 +86,7 @@ def construire_pipeline_px8(donnees: dict) -> list[dict]:
         },
         {
             "key": "viralite",
+            "highlight_keys": ["acteurs"],
             "phase": "Agents d'analyse",
             "label": "Agent 1",
             "value": "Viralité",

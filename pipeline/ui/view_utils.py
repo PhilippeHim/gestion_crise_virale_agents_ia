@@ -7,7 +7,27 @@ import pandas as pd
 import streamlit as st
 from pipeline.config import config
 
-from pipeline.ui.react_components import render_react_outputs, render_react_summary
+
+def render_kpi_summary(metrics: list[dict]) -> None:
+    cols = st.columns(len(metrics))
+    _tone_color = {"danger": "#b42318", "warn": "#b7791f", "ok": "#15803d"}
+    for col, m in zip(cols, metrics):
+        with col:
+            color = _tone_color.get(m.get("tone", ""), None)
+            value = str(m.get("value", ""))
+            label = m.get("label", "")
+            caption = m.get("caption", "")
+            if color:
+                st.markdown(
+                    f"<div style='border:1px solid #d8dee4;border-radius:8px;padding:12px 14px;background:#f6f8fa'>"
+                    f"<div style='font-size:12px;color:#64717d;margin-bottom:6px'>{label}</div>"
+                    f"<div style='font-size:26px;font-weight:750;color:{color}'>{value}</div>"
+                    f"<div style='font-size:12px;color:#64717d;margin-top:6px'>{caption}</div>"
+                    f"</div>",
+                    unsafe_allow_html=True,
+                )
+            else:
+                st.metric(label=label, value=value, help=caption or None)
 
 
 def executer_pipeline(path: str) -> dict:
@@ -308,7 +328,7 @@ def afficher_resume(donnees: dict) -> None:
     dataset = donnees.get("dataset")
     historique = donnees.get("historique_modules", [])
 
-    render_react_summary(
+    render_kpi_summary(
         [
             {"label": "Modules executes", "value": len(historique), "tone": "ok"},
             {
@@ -446,27 +466,6 @@ def afficher_viralite(donnees: dict) -> None:
     st.dataframe(dataset[colonnes_apercu].head(25), use_container_width=True)
 
 
-def afficher_sorties(donnees: dict) -> None:
-    communautes = []
-    for communaute in donnees.get("communautes", [])[:8]:
-        communautes.append(
-            {
-                "id": communaute.get("id"),
-                "nombre_messages": communaute.get("nombre_messages"),
-                "pct_negative": communaute.get("pct_negative"),
-                "jour_pic": communaute.get("jour_pic"),
-                "sources_pivots": communaute.get("sources_pivots", []),
-            }
-        )
-
-    render_react_outputs(
-        {
-            "declencheur": donnees.get("declencheur"),
-            "communautes": communautes,
-            "proposition": donnees.get("proposition"),
-            "arreter_pipeline": donnees.get("arreter_pipeline"),
-        }
-    )
 
 
 def valeur_tableau_lisible(valeur):

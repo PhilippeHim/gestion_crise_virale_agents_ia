@@ -174,7 +174,7 @@ class AgentLangage(Module):
             vecteur_requete = vectoriseur.transform([self.nettoyer_texte(requete)])
             similarites = cosine_similarity(vecteur_requete, matrice).ravel()
             score = similarites * np.log1p([volumes[document] for document in documents])
-            meilleurs = score.argsort()[::-1][:6]
+            meilleurs = score.argsort()[::-1][:10]
             exemples[str(recit["id"])] = [
                 {
                     "message": documents[index],
